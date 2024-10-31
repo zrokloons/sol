@@ -1,0 +1,36 @@
+
+[
+  {
+    "id": "0000000038",
+    "tenant": "TENANT",
+    "project": "PROJECT",
+    "job": "check",
+    "ref_filter": "refs/changes/24/80736/.*",
+    "max_count": 1,
+    "current_count": 0,
+    "reason": "REASON",
+    "node_expiration": 36000,
+    "expired": null,
+    "nodes": []
+  },
+  {
+    "id": "0000000353",
+    "tenant": "TENANT",
+    "project": "PROJECT",
+    "job": "JOB",
+    "ref_filter": "refs/changes/98/84404/.*",
+    "max_count": 2,
+    "current_count": 1,
+    "reason": "REASON",
+    "node_expiration": 36000,
+    "expired": null,
+    "nodes": [
+      {
+        "build": "981688d9ce914292a8b1f16687be0e6c",
+        "nodes": [
+          "0200136009",
+          "0200136008"
+        ]
+      }
+    ]
+  },

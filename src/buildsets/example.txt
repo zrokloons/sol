@@ -1,0 +1,25 @@
+[
+  {
+    "_id": 1748638,
+    "uuid": "e563d3f2bbe041549f81ca21f61b2248",
+    "result": "SUCCESS",
+    "message": "Build succeeded.",
+    "pipeline": "check",
+    "event_id": "3242d6c302f1459cbfe406e8a1f98f81",
+    "event_timestamp": "2024-10-20T06:07:08",
+    "first_build_start_time": "2024-10-20T06:09:14",
+    "last_build_end_time": "2024-10-20T06:17:45",
+    "refs": [
+      {
+        "project": "<PROJECT",
+        "branch": "<BRANCH>",
+        "change": 84934,
+        "patchset": "7",
+        "ref": "refs/changes/32/84933/5",
+        "oldrev": null,
+        "newrev": null,
+        "ref_url": "URL"
+      }
+    ]
+  }
+]
