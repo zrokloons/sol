@@ -17,11 +17,11 @@ pub struct Cli {
     #[command(subcommand)]
     pub command: Option<Commands>,
 
-    /// Tenants
+    /// Tenant name, overrides configuration
     #[arg(global = true, long)]
     pub tenant: Option<String>,
 
-    /// Limit response from server
+    /// Limit responses from Zuul
     #[arg(global = true, long, default_value_t = 10)]
     pub limit: usize,
 
