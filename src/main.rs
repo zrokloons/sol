@@ -2,7 +2,7 @@ use anyhow::Result as AnyhowResult;
 use clap::{Command, CommandFactory, Parser};
 use clap_complete::{generate, Generator};
 use sol::autohold;
-use sol::build;
+use sol::builds;
 use sol::buildsets;
 use sol::cli_struct::{Cli, Commands};
 use sol::config::Config;
@@ -38,24 +38,30 @@ fn main() -> AnyhowResult<()> {
             functions::cli::FunctionCommand::BuildNodes(bn) => {
                 functions::build_node::command::BuildNode::new(config)?
                     .build_id(bn.build_id.clone())?
+                    .force(bn.force)?
                     .runner()?
                     .show()?;
             }
         },
-        Some(Commands::Build(build)) => {
-            build::command::Build::new(config)?
-                .build_id(build.build_id.clone())?
-                .force(build.force)?
+        Some(Commands::Builds(builds)) => {
+            builds::command::Builds::new(config)?
+                .job_name(builds.job_name.clone())?
+                .uuid(builds.uuid.clone())?
+                .change(builds.change.clone())?
+                .patchset(builds.patchset.clone())?
+                .force(builds.force)?
+                .verbose(builds.verbose)?
                 .runner()?
                 .show()?;
         }
         Some(Commands::BuildSets(bs)) => {
             buildsets::command::BuildSets::new(config)?
                 .result(bs.result.clone())?
-                .project(bs.project.clone())?
-                .change(bs.change.clone())?
+                .project(bs.group.project.clone())?
+                .change(bs.group.change.clone())?
+                .uuid(bs.group.uuid.clone())?
                 .runner()?
-                .filter()?
+                //.filter()?
                 .show()?;
         }
         Some(Commands::AutoHold(ah)) => match &ah.command {

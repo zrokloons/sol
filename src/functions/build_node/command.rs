@@ -1,4 +1,5 @@
-use crate::build;
+use crate::builds;
+use crate::builds::builds_struct::Target;
 use crate::config::Config;
 use crate::enums::output::Output;
 use crate::functions::build_node::parameters::Parameters;
@@ -14,6 +15,7 @@ use serde_yaml;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::prelude::*;
+use std::path::PathBuf;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct _Node {
@@ -34,10 +36,11 @@ impl BuildNode {
     pub fn new(config: Config) -> AnyhowResult<BuildNode> {
         Ok(Self {
             result: vec![],
+            config,
             parameters: Parameters {
                 build_id: String::new(),
+                force: false,
             },
-            config,
         })
     }
 
@@ -46,41 +49,50 @@ impl BuildNode {
         Ok(self)
     }
 
+    pub fn force(&mut self, force: bool) -> AnyhowResult<&mut Self> {
+        self.parameters.force = force;
+        Ok(self)
+    }
+
     pub fn runner(&mut self) -> AnyhowResult<&mut Self> {
         log::debug!("{self:#?}");
-
-        // TODO: Possible to use the Target struct, potential refactor can be done here
-        let dest: String =
-            self.config.cache.clone() + "/" + &self.parameters.build_id + "/inventory.yaml.gz";
+        let target = Target::new(self.parameters.build_id.clone(), self.config.cache.clone());
 
         // Get log_url from Build
-        let mut build = build::command::Build::new(self.config.clone())?;
-        build.build_id(self.parameters.build_id.clone())?;
+        let mut build = builds::command::Builds::new(self.config.clone())?;
+        build.uuid(Some(self.parameters.build_id.clone()))?;
+        build.force(self.parameters.force)?;
         build.runner()?;
 
-        let log_url = build.get_string("log_url")?;
-        let end_time = build.get_string("end_time")?;
+        let log_url = build.result.as_ref().unwrap()[0].log_url.clone().unwrap();
+        let end_time = build.result.as_ref().unwrap()[0].end_time.clone().unwrap();
         let age = diffdatetime_now::DiffDateTimeNow::new(format!("{}+00:00", end_time.clone()));
 
-        // Create the url to the inventory using fetched log_url
-        let url = format!("{}zuul-info/inventory.yaml", log_url);
-
-        // Download and write to file
-        let mut data: Vec<u8> = vec![];
-        send_receive(&mut data, &url);
-        {
-            let mut file = File::create(&dest)?;
-            file.write_all(data.as_slice())?;
+        if target.inventory.exists() && self.parameters.force || !target.inventory.exists() {
+            self.request(&target.inventory, &log_url)?;
         }
 
         // Decompress file
-        let in_filename = dest;
-        let in_fh = std::fs::File::open(in_filename)?;
+        let in_fh = std::fs::File::open(target.inventory)?;
         let mut gz = GzDecoder::new(in_fh);
         let mut store = String::new();
         gz.read_to_string(&mut store)?;
 
         self.parse_n_populate(&mut store, age)?;
+        Ok(self)
+    }
+
+    fn request(&mut self, inventory: &PathBuf, log_url: &str) -> AnyhowResult<&mut Self> {
+        // Create the url to the inventory using fetched log_url
+        let url = format!("{}zuul-info/inventory.yaml", log_url);
+
+        // Download and write cache
+        let mut data: Vec<u8> = vec![];
+        send_receive(&mut data, &url);
+        {
+            let mut file = File::create(inventory)?;
+            file.write_all(data.as_slice())?;
+        };
         Ok(self)
     }
 
