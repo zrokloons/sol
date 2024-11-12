@@ -4,11 +4,11 @@ Sol is an application that extracts information from Zuul via the REST API.
 
 ## Features
 
-Following APIs are supported:
+Following API endpoints are supported:
 
 - [GET /api/tenant/{tenant_name}/buildsets](https://zuul-ci.org/docs/zuul/latest/rest-api.html#get--api-tenant-tenant_name-buildsets)
 - [GET /api/tenant/{tenant_name}/autohold](https://zuul-ci.org/docs/zuul/latest/rest-api.html#get--api-tenant-tenant_name-autohold)
-- [GET /api/tenant/{tenant_name}/build/{uuid}](https://zuul-ci.org/docs/zuul/latest/rest-api.html#get--api-tenant-tenant_name-build-uuid)
+- [GET /api/tenant/{tenant_name}/builds](https://zuul-ci.org/docs/zuul/latest/rest-api.html#get--api-tenant-tenant_name-builds)
 
 ([Zuul's REST API](https://zuul-ci.org/docs/zuul/latest/rest-api.html))
 
@@ -40,7 +40,7 @@ This configuration will need to be updated.
 
 ## Debugging
 
-Sol uses `env_logger` crate. So to run Sol with debug set `RUST_LOG=debug`
+Sol uses `env_logger` crate. So to run with debug set `RUST_LOG=debug`
 before you run it.
 
 For backtrace set `RUST_BACKTRACE=1`.

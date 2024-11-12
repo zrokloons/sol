@@ -61,7 +61,6 @@ fn main() -> AnyhowResult<()> {
                 .change(bs.group.change.clone())?
                 .uuid(bs.group.uuid.clone())?
                 .runner()?
-                //.filter()?
                 .show()?;
         }
         Some(Commands::AutoHold(ah)) => match &ah.command {
