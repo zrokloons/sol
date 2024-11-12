@@ -1,0 +1,105 @@
+# limit=2
+[
+  {
+    "_id": 92858488,
+    "uuid": "aa215397f6cd4ef9a2e41629e4442afb",
+    "job_name": "test-suites-collector-graviton-p519-ci",
+    "result": "FAILURE",
+    "held": false,
+    "start_time": "2024-10-31T16:34:32",
+    "end_time": "2024-10-31T17:19:01",
+    "duration": 2669,
+    "voting": true,
+    "log_url": "URL",
+    "nodeset": "",
+    "error_detail": null,
+    "final": true,
+    "artifacts": [
+      {
+        "name": "Zuul Manifest",
+        "url": "URL",
+        "metadata": {
+          "type": "zuul_manifest"
+        }
+      },
+      {
+        "name": "Node Log in Splunk",
+        "url": "URL"
+      },
+      {
+        "name": "kalle.json",
+        "url": "URL"
+      },
+      {
+        "name": "something.report",
+        "url": "URL"
+      }
+    ],
+    "provides": [],
+    "ref": {
+      "project": "PROJECT",
+      "branch": "master",
+      "change": 251463,
+      "patchset": "55",
+      "ref": "refs/changes/66/221466/55",
+      "oldrev": null,
+      "newrev": null,
+      "ref_url": "URL"
+    },
+    "pipeline": "check",
+    "event_id": "f737f85d224a50f8b3a11841f1d93591",
+    "event_timestamp": "2024-10-31T15:49:24",
+    "buildset": {
+      "uuid": "94f6ccdf6a3141c79d915cca9602c279"
+    }
+  },
+  {
+    "_id": 18851537,
+    "uuid": "9510aed989c85ec59f0f7d4560f113eb",
+    "job_name": "JOB_NAME",
+    "result": "FAILURE",
+    "held": true,
+    "start_time": "2024-10-31T14:37:47",
+    "end_time": "2024-10-31T14:52:10",
+    "duration": 863,
+    "voting": true,
+    "log_url": "URL",
+    "nodeset": "",
+    "error_detail": null,
+    "final": true,
+    "artifacts": [
+      {
+        "name": "Zuul Manifest",
+        "url": "URL",
+        "metadata": {
+          "type": "zuul_manifest"
+        }
+      },
+      {
+        "name": "Node Log in Splunk",
+        "url": "URL"
+      },
+      {
+        "name": "getmetrics.json",
+        "url": "URL"
+      }
+    ],
+    "provides": [],
+    "ref": {
+      "project": "PROJECT",
+      "branch": "master",
+      "change": 221469,
+      "patchset": "55",
+      "ref": "refs/changes/62/221462/55",
+      "oldrev": null,
+      "newrev": null,
+      "ref_url": "URL"
+    },
+    "pipeline": "check",
+    "event_id": "900e5c5b0ff47f09bd98db69d9fe43ed",
+    "event_timestamp": "2024-10-31T13:22:47",
+    "buildset": {
+      "uuid": "143a7249c9cd48f0b104ceac88cfcffad"
+    }
+  }
+]

@@ -1,5 +1,5 @@
 use crate::autohold;
-use crate::build;
+use crate::builds;
 use crate::buildsets;
 use crate::enums;
 use crate::functions;
@@ -38,8 +38,8 @@ pub enum Commands {
     /// AutoHolds
     AutoHold(autohold::cli::AutoHold),
 
-    /// Build information
-    Build(build::cli::Build),
+    /// Builds information
+    Builds(builds::cli::Builds),
 
     /// Functions
     Functions(functions::cli::Functions),

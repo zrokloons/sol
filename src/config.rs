@@ -90,7 +90,22 @@ impl Config {
         config.limit = cli.limit;
         config.output = cli.output;
         log::debug!("Config after overrides: {:#?}", config);
+
+        Config::validate(&config)?;
         Ok(config)
+    }
+
+    fn validate(config: &Config) -> AnyhowResult<()> {
+        // Validate cache directory exists
+        match Path::new(config.cache.as_str()).exists() {
+            true => (),
+            false => {
+                log::debug!("Created cache: {:#?} directory", &config.cache);
+                fs::create_dir(&config.cache)?;
+            }
+        };
+
+        Ok(())
     }
 
     fn init() -> AnyhowResult<()> {

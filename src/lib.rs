@@ -22,8 +22,8 @@ pub mod autohold {
     pub mod list_struct;
 }
 
-pub mod build {
-    pub mod b_struct;
+pub mod builds {
+    pub mod builds_struct;
     pub mod cli;
     pub mod command;
     pub mod parameters;
