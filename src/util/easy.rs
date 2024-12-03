@@ -31,7 +31,7 @@ pub fn send_receive(data: &mut Vec<u8>, url: &str) {
         Ok(code) => match code {
             200 => log::debug!("Response code: {code}"),
             _ => {
-                println!("WOW Response code: {}", code);
+                println!("Response code: {}", code);
                 let message: String = serde_json::from_slice(data).unwrap();
                 println!("{:#?}", message);
                 process::exit(1);

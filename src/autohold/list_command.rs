@@ -94,10 +94,11 @@ impl ListAutoHold {
     }
 
     fn _show_json(&mut self) -> AnyhowResult<()> {
-        Ok(println!(
+        println!(
             "{}",
             serde_json::to_string(&self.result.as_ref().unwrap()).unwrap()
-        ))
+        );
+        Ok(())
     }
 
     fn _show_user(&mut self) -> AnyhowResult<()> {
@@ -156,6 +157,7 @@ impl ListAutoHold {
                 Cell::new(elem.job.clone()),
             ]);
         }
-        Ok(println!("{table}"))
+        println!("{table}");
+        Ok(())
     }
 }
