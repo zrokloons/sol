@@ -92,15 +92,16 @@ impl BuildSets {
     }
 
     fn _show_json(&mut self) -> AnyhowResult<()> {
-        Ok(println!(
+        println!(
             "{}",
             serde_json::to_string(&self.result.as_ref().unwrap()).unwrap()
-        ))
+        );
+        Ok(())
     }
 
     fn _show_user(&mut self) -> AnyhowResult<()> {
         match self.result.as_ref() {
-            None => Ok(println!("Nothing found")),
+            None => println!("Nothing found"),
             Some(result) => {
                 let mut table = Table::new();
                 table
@@ -135,8 +136,9 @@ impl BuildSets {
                     ]);
                 }
 
-                Ok(println!("{table}"))
+                println!("{table}")
             }
         }
+        Ok(())
     }
 }

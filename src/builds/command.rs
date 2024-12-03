@@ -228,8 +228,8 @@ impl Builds {
                 Cell::new(e.job_name.clone()),
             ]);
         }
-
-        Ok(println!("{table}"))
+        println!("{table}");
+        Ok(())
     }
 
     fn _show_user_verbose(&mut self) -> AnyhowResult<()> {
@@ -277,7 +277,7 @@ impl Builds {
                 Cell::new(e.job_name.clone()),
             ]);
         }
-
-        Ok(println!("{table}"))
+        println!("{table}");
+        Ok(())
     }
 }

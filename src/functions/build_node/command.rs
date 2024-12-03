@@ -110,31 +110,31 @@ impl BuildNode {
         let data: serde_yaml::Value = serde_yaml::from_str(store)?;
         let hosts = data["all"]["hosts"].to_owned();
         let map: HashMap<String, serde_yaml::Value> = serde_yaml::from_value(hosts)?;
-        let mut collected: Vec<String> = vec![];
+        let mut collected: HashMap<String, String> = HashMap::new();
 
         for (host, value) in map.iter() {
             let m2: HashMap<String, serde_yaml::Value> = serde_yaml::from_value(value.to_owned())?;
             for (attr, v2) in m2.iter() {
                 if attr == "ansible_host" {
-                    collected.push(v2.as_str().unwrap().to_string());
+                    collected.insert("ip".to_string(), v2.as_str().unwrap().to_string());
                 }
                 if attr == "nodepool" {
                     let m3: HashMap<String, serde_yaml::Value> =
                         serde_yaml::from_value(v2.to_owned())?;
                     for (attr2, v3) in m3.iter() {
                         if attr2 == "label" {
-                            collected.push(v3.as_str().unwrap().to_string());
+                            collected.insert("label".to_string(), v3.as_str().unwrap().to_string());
                         }
                     }
                 }
                 if collected.len() == 2 {
                     self.result.push(_Node {
                         name: host.to_string(),
-                        ip: collected[0].clone(),
-                        label: collected[1].clone(),
+                        ip: collected.get("ip").unwrap().clone(),
+                        label: collected.get("label").unwrap().clone(),
                         age: age.clone(),
                     });
-                    collected = vec![];
+                    break;
                 }
             }
         }
@@ -171,7 +171,7 @@ impl BuildNode {
                 Cell::new(node.age.clone()),
             ]);
         }
-
-        Ok(println!("{table}"))
+        println!("{table}");
+        Ok(())
     }
 }
